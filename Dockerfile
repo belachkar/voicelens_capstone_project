@@ -3,13 +3,15 @@
 #      a slim or tensorflow base
 
 #      Standard version
-FROM python:3.12
+FROM python:3.10.6
 
 #      Slim version
 # FROM python:3.12-slim
 
 #      Tensorflow version (attention: won't run on Apple Silicon)
 # FROM tensorflow/tensorflow:2.16.1
+
+WORKDIR /app
 
 # Install requirements
 COPY requirements.txt requirements.txt
