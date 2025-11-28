@@ -1,7 +1,10 @@
 # data science
 numpy<2.0.0
 pandas==2.2.3
+scikit-learn==1.6.1
 
+spacy
+emoji
 # Uncomment if you use sklearn
 # scikit-learn==1.6.1
 
@@ -17,3 +20,8 @@ pandas==2.2.3
 # API
 fastapi
 uvicorn
+
+pydantic
+requests
+joblib
+en-core-web-trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.7.2/en_core_web_trf-3.7.2-py3-none-any.whl

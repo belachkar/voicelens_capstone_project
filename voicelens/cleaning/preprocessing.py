@@ -1,8 +1,8 @@
-import pandas as pd
 import re
-import emoji
-import spacy
 
+import emoji
+import pandas as pd
+import spacy
 
 # Charger le modèle spaCy transformer
 nlp = spacy.load("en_core_web_trf")
@@ -49,7 +49,7 @@ def _clean_rating(rating):
     print("\n\nSTARTING COMPREHENSIVE DATA CLEANING")
 
 
-def _apply_cleaning(df, text_col="comment"):
+def apply_cleaning(df, text_col="comment"):
     df = df.copy()
     df[text_col] = df[text_col].astype(str).fillna("")
     df["_clean_text"] = df[text_col].apply(_clean_text)
@@ -59,7 +59,7 @@ def _apply_cleaning(df, text_col="comment"):
 
 def clean(df, comment_col="comment"):
     print("🔧 Étape 1 : Nettoyage du texte…")
-    df = _apply_cleaning(df, comment_col)
+    df = apply_cleaning(df, comment_col)
 
     print("Cleaning rating column...")
     df["rating"] = df["rating"].apply(_clean_rating)

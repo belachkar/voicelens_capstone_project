@@ -1,8 +1,10 @@
-import pandas as pd
 import re
+
 import emoji
+import pandas as pd
 import spacy
-from voicelens.cleaning.preprocessing import apply_cleaning, remove_duplicate_entities
+
+# from voicelens.cleaning.preprocessing import apply_cleaning, remove_duplicate_entities
 
 # Charger le modèle spaCy transformer
 nlp = spacy.load("en_core_web_trf")
