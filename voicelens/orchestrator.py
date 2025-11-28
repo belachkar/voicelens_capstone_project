@@ -1,7 +1,8 @@
-from prefect import task, flow
-from google.cloud import bigquery
-import pandas as pd
 import os
+
+import pandas as pd
+from google.cloud import bigquery
+from prefect import flow, task
 
 # from sentiment_model import predict_sentiment
 # from topic_model import predict_topic
@@ -22,7 +23,7 @@ def run_sentiment_task(df):
     # df['predicted_sentiment'] = df['review_text'].apply(your_sentiment_model)
     # DUMMY LOGIC
     df_out = df[['review_id']].copy()
-    df_out['predicted_sentiment'] = "Positive"
+    df_out['predicted_sentiment'] = "positive"
     df_out['sentiment_score'] = 0.95
 
     # Write to specific table
