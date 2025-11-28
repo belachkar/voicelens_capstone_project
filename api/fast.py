@@ -86,6 +86,56 @@ class PredictRequest(BaseModel):
 
 @app.post("/predict")
 def predict_review(request: PredictRequest):
+    global sentiment_model, nlp
+
+    results = []
+
+    for review in request.reviews:
+
+        # 1) Sentiment
+        sentiment_pred = sentiment_model.predict([review])[0]
+
+        # # ------- Topic Prediction -------
+        # # Example: If topic_model is something like TfidfVectorizer + SVM
+        # topic_pred = topic_model.predict([review])[0]
+
+        # # ------- Entity Extraction Pipeline -------
+        # df = pd.DataFrame([review], columns=["_clean_review"])
+
+        # You can add your cleaning if needed:
+        # For a single review
+        # comment or "_clean_text" if you prefer
+
+        # 2) Cleaning & Entity Extraction
+        df = pd.DataFrame([review], columns=["comment"])
+        df = apply_cleaning(df, text_col="comment")
+
+        if df.empty:
+            # Cleaning removed text → return sentiment only
+            results.append({
+                "text": review,
+                "sentiment": sentiment_pred,
+                "entities": []
+            })
+            continue
+
+        # 3) Entity Model
+        enr_df = run_enr_model(df, text_col="_clean_text")
+        entities = enr_df["entities"].iloc[0]
+
+        results.append(
+            {
+                "text": review,
+                "sentiment": sentiment_pred,
+                "entities": entities,
+            }
+        )
+
+    return results
+
+
+@app.post("/predict")
+def predict_review(request: PredictRequest):
     # global sentiment_model, topic_model, nlp
     global sentiment_model, nlp
 
